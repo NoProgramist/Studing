@@ -52,13 +52,16 @@ brother(X, Y) :- sibling(X, Y), man(X).
 aunt(X,Y) :- parent(Z,Y), sister(X,Z).
 uncle(X,Y) :- parent(Z,Y), brother(X,Z). 
 
+desc(X, Y):-parent(X, Y).
+desc(X, Y):-parent(X, Z), desc(Z, Y).
+
 %?-mother("Chikh Oksana",X), write(X), write(" ").
 %?-grandparent("Stefanyk Vasyl", X), write(X), write(" ").
 %?-sibling("Chikh Volodymyr", X), write(X), write(" ").
 %?-sister("Stefanyk Mariya", X), write(X), write(" ").
 %?-uncle("Stefanyk Mykola", X) , write(X), write(" ").
 
-
+?-desc("Chikh Mykola", X), write(X), write(" ").
 
 
 
