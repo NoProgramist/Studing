@@ -44,6 +44,8 @@ parent("Chikh Oksana","Marunchak Nadia").
 father(X, Y) :- parent(X, Y), man(X).
 mother(X, Y) :- parent(X, Y), woman(X).
 grandparent(X, Z) :- parent(X, Y), parent(Y, Z).
+son(X,Y) :- man(X),parent(Y,X).
+daughter(X,Y) :- woman(X),parent(Y,X).
 
 sibling(X, Y) :- father(Z, X), father(Z, Y), mother(ZZ, X), mother(ZZ, Y), X \= Y.
 sister(X, Y) :- sibling(X, Y), woman(X).
@@ -54,6 +56,13 @@ uncle(X,Y) :- parent(Z,Y), brother(X,Z).
 
 desc(X, Y):-parent(X, Y).
 desc(X, Y):-parent(X, Z), desc(Z, Y).
+ancest(X, Y):-desc(Y, X).
+
+cousin(X,Y) :- uncle(U, X),father(U,Y).
+
+family(X):-family(X, Y, 0).
+family(X, Y, 0):-brother(X, Y), man(Y), 
+write("brother: "), write(Y), write("\n").
 
 %?-mother("Chikh Oksana",X), write(X), write(" ").
 %?-grandparent("Stefanyk Vasyl", X), write(X), write(" ").
@@ -61,9 +70,9 @@ desc(X, Y):-parent(X, Z), desc(Z, Y).
 %?-sister("Stefanyk Mariya", X), write(X), write(" ").
 %?-uncle("Stefanyk Mykola", X) , write(X), write(" ").
 
-?-desc("Chikh Mykola", X), write(X), write(" ").
+%?-desc("Chikh Mykola", X), write(X), write("\n").
 
-
+?-cousin(X, "Chikh Volodymyr"), write(X), write(" ").
 
 
 
