@@ -44,6 +44,10 @@ parent("Chikh Oksana","Marunchak Nadia").
 father(X, Y) :- parent(X, Y), man(X).
 mother(X, Y) :- parent(X, Y), woman(X).
 grandparent(X, Z) :- parent(X, Y), parent(Y, Z).
+grandm(X, Z) :- grandparent(X, Z), woman(X).
+grandf(X, Z) :- grandparent(X, Z), man(X).
+
+
 son(X,Y) :- man(X),parent(Y,X).
 daughter(X,Y) :- woman(X),parent(Y,X).
 
@@ -60,9 +64,28 @@ ancest(X, Y):-desc(Y, X).
 
 cousin(X,Y) :- uncle(U, X),father(U,Y).
 
-family(X):-family(X, Y, 0).
-family(X, Y, 0):-brother(X, Y), man(Y), 
-write("brother: "), write(Y), write("\n").
+family(X):-family(X, Y).
+family(X, Y):-brother(Y, X), 
+write("brother:"), write(Y), write("\n").
+family(X, Y):-sister(Y, X),
+write("sister:"), write(Y), write("\n").
+family(X, Y):-father(Y, X),
+write("father:"), write(Y), write("\n").
+family(X, Y):-mother(Y, X),
+write("mother:"), write(Y), write("\n").
+family(X, Y):-grandm(Y, X),
+write("grandmother:"), write(Y), write("\n").
+family(X, Y):-grandf(Y, X),
+write("grandfather:"), write(Y), write("\n").
+family(X, Y):-son(Y, X),
+write("son:"), write(Y), write("\n").
+family(X, Y):-daughther(Y, X),
+write("son:"), write(Y), write("\n").
+
+
+
+
+
 
 %?-mother("Chikh Oksana",X), write(X), write(" ").
 %?-grandparent("Stefanyk Vasyl", X), write(X), write(" ").
@@ -71,8 +94,6 @@ write("brother: "), write(Y), write("\n").
 %?-uncle("Stefanyk Mykola", X) , write(X), write(" ").
 
 %?-desc("Chikh Mykola", X), write(X), write("\n").
+%?-cousin(X, "Chikh Volodymyr"), write(X), write(" ").
 
-?-cousin(X, "Chikh Volodymyr"), write(X), write(" ").
-
-
-
+?-family("Chikh Volodymyr").
